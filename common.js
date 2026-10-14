@@ -49,7 +49,7 @@
 
   // tabs (role=tablist)
   $$('[role="tablist"]').forEach(function(tl){var tabs=$$('[role="tab"]',tl);
-    var sel=function(t,focus){tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',String(on));x.tabIndex=on?0:-1;var p=document.getElementById(x.getAttribute('aria-controls'));if(p)p.hidden=!on});if(focus)t.focus();tl.dispatchEvent(new CustomEvent('tabchange',{detail:t}))};
+    var sel=function(t,focus){var keep=t.getAttribute('aria-controls');tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',String(on));x.tabIndex=on?0:-1;var id=x.getAttribute('aria-controls'),p=document.getElementById(id);if(p)p.hidden=(id!==keep)});if(focus)t.focus();tl.dispatchEvent(new CustomEvent('tabchange',{detail:t}))};
     tabs.forEach(function(t,i){t.addEventListener('click',function(){sel(t)});t.addEventListener('keydown',function(e){var k=e.key,n=null;var v=tl.getAttribute('aria-orientation')==='vertical';
       if(k===(v?'ArrowDown':'ArrowRight'))n=tabs[(i+1)%tabs.length];if(k===(v?'ArrowUp':'ArrowLeft'))n=tabs[(i-1+tabs.length)%tabs.length];if(k==='Home')n=tabs[0];if(k==='End')n=tabs[tabs.length-1];if(n){e.preventDefault();sel(n,true)}})});});
 
