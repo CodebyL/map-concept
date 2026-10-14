@@ -5,7 +5,7 @@
   var hdr=$('[data-header]');
   var setH=function(){if(hdr)d.style.setProperty('--hh',Math.round(hdr.getBoundingClientRect().height)+'px')};
   setH();addEventListener('resize',setH);addEventListener('load',setH);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(setH);
-  var stuck=function(){if(hdr)hdr.classList.toggle('is-stuck',scrollY>(hdr.offsetTop||0)+2)};stuck();addEventListener('scroll',stuck,{passive:true});
+  var top0=hdr?hdr.getBoundingClientRect().top+scrollY:0;var stuck=function(){if(hdr)hdr.classList.toggle('is-stuck',scrollY>top0+4)};stuck();addEventListener('scroll',stuck,{passive:true});
 
   // menu
   var tog=$('[data-menu-toggle]'),panel=tog&&document.getElementById(tog.getAttribute('aria-controls'));
